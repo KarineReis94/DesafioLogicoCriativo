@@ -4,11 +4,10 @@ Descrição
 
 Jogo de perguntas e respostas de conhecimentos gerais, com interface gráfica, ranking de jogadores e regras específicas:
 
-
-
-Cada jogada deve acertar no mínimo 6 questões;
-
-Se errar 3, o jogador perde.
+O jogo apresenta um total de 12 perguntas (matemática e cultura geral).
+A cada partida as perguntas vêm em ordem aleatória.
+Se errar 3 vezes, você perde.
+Ao final, sua pontuação é salva no ranking.
 
 Funcionalidades
 
@@ -28,35 +27,31 @@ Abrir o projeto no NetBeans ( DesafioLogicoCriativo);
 
 Compilar e executar uma classe Main.java.
 
+Como jogar
+Clique em Iniciar.
+Digite seu nome (será salvo no ranking).
+Responda as alternativas clicando nos botões.
+
 Estrutura de massas
 
 src/ ├── desafiológico/ # Classes do jogo └── desafiológico/gui/ # Interface gráfica
 
-
-
 ranking.txt # Arquivo de ranking .gitignore # Ignorar arquivos de build
 
 
+Pontos obrigatórios da disciplina;
 
-mas do jogo
+Salvamento do jogo em (escolher 1 das 2 opções): Escrita/leitura de arquivo .txt
+Banco de dados.
+Interface gráfica.
+Criatividade.
+Pelo menos:
+4 classes criadas pelo grupo.
+Utilizar herança.
+Utilizar polimorfismo.
+Utilizar classe interface e/ou abstrata.
 
-Acertar no mínimo 6 perguntas por rodada;
-
-Errar 3 perguntas resultado na derrota;
-
-Pontuação é registrada no ranking para comparar jogadores.
-
-Pontos obrigatórios da disciplina
-
-Pelo menos 4 aulas criadas pelo grupo ;
-
-Herança : algumas classes derivadas de classes base;
-
-Polimorfismo : métodos sobrescritos para comportamentos diferentes;
-
-Classe abstrata/interface : utilizada para estruturar o jogo de forma modular.
-
-Observações
+Observações:
 
 Este projeto foi desenvolvido com foco em aprendizado de Java, organização de código e boas práticas, mantendo o código limpo e modular.
 
