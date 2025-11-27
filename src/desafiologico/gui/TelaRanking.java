@@ -11,46 +11,91 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TelaRanking extends JFrame {
-    public TelaRanking(int pontos) {
-        setTitle("Ranking - Desafio Lógico Criativo");
-        setSize(400, 300);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+    private String nome;
+    private int pontuacao;
+    private File arquivo = new File("ranking.txt");
+
+    public TelaRanking(String nome, int pontuacao) {
+        this.nome = nome;
+        this.pontuacao = pontuacao;
+
+        salvar();
+
+        setTitle("Ranking dos Jogadores");
+        setSize(450, 420);
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JLabel titulo = new JLabel("Pontuação Final: " + pontos, SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 18));
-        add(titulo, BorderLayout.NORTH);
+        JPanel topo = new JPanel();
+        topo.setBackground(new Color(180, 255, 180));
+        JLabel titulo = new JLabel("Ranking dos Jogadores", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 20));
+        topo.add(titulo);
+        add(topo, BorderLayout.NORTH);
 
-        JTextArea rankingArea = new JTextArea();
-        rankingArea.setEditable(false);
-        add(new JScrollPane(rankingArea), BorderLayout.CENTER);
+        JTextArea area = new JTextArea();
+        area.setEditable(false);
+        area.setFont(new Font("Monospaced", Font.PLAIN, 14));
 
-        salvarPontuacao(pontos);
-        rankingArea.setText(carregarPontuacoes());
+        StringBuilder texto = new StringBuilder();
+
+        List<String> linhas = carregarRanking();
+        for (String linha : linhas) {
+            texto.append(linha).append("\n");
+        }
+
+        area.setText(texto.toString());
+        add(new JScrollPane(area), BorderLayout.CENTER);
+
+        JButton fechar = new JButton("Fechar");
+        fechar.addActionListener(e -> System.exit(0));
+        add(fechar, BorderLayout.SOUTH);
     }
 
-    private void salvarPontuacao(int pontos) {
-        try (FileWriter fw = new FileWriter("ranking.txt", true);
-             BufferedWriter bw = new BufferedWriter(fw)) {
-            bw.write("Jogador: " + pontos + " pontos\n");
-        } catch(IOException e) {
+    private void salvar() {
+        try (FileWriter fw = new FileWriter(arquivo, true)) {
+            fw.write(nome + ";" + pontuacao + "\n");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private String carregarPontuacoes() {
-        List<String> linhas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader("ranking.txt"))) {
+    private List<String> carregarRanking() {
+        List<String> lista = new ArrayList<>();
+
+        try {
+            if (!arquivo.exists()) return lista;
+
+            BufferedReader br = new BufferedReader(new FileReader(arquivo));
             String linha;
-            while((linha = br.readLine()) != null) {
-                linhas.add(linha);
+
+            while ((linha = br.readLine()) != null) {
+
+                String[] partes = linha.split(";");
+
+                if (partes.length == 2) {
+                    lista.add(linha);
+                }
             }
-        } catch(IOException e) {
-            return "Nenhuma pontuação ainda.";
+
+            br.close();
+
+            lista.sort((a, b) -> {
+                try {
+                    int pa = Integer.parseInt(a.split(";")[1]);
+                    int pb = Integer.parseInt(b.split(";")[1]);
+                    return Integer.compare(pb, pa);
+                } catch (Exception e) {
+                    return 0;
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        StringBuilder sb = new StringBuilder();
-        for(String l : linhas) sb.append(l).append("\n");
-        return sb.toString();
+
+        return lista;
     }
 }

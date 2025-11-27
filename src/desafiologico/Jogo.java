@@ -5,66 +5,118 @@
 package desafiologico;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Jogo {
+
     private List<Questao> questoes;
-    private int acertos;
-    private int erros;
-    private int pontos;
+    private int indiceAtual = 0;
+    private int pontuacao = 0;
+    private String nomeJogador;
 
-    public Jogo() {
-        questoes = new ArrayList<>();
-        acertos = 0;
-        erros = 0;
-        pontos = 0;
-        inicializarQuestoes();
+    public Jogo(String nomeJogador) {
+        this.nomeJogador = nomeJogador;
+        this.questoes = new ArrayList<>();
+        carregarPoolDeQuestoes();
+        Collections.shuffle(this.questoes); // embaralha a ordem
+       
     }
 
-    private void inicializarQuestoes() {
-        // Questões de Cultura
-        questoes.add(new QuestaoCultura("Qual é a capital do Brasil?", new String[]{"Brasília", "Rio", "São Paulo", "Salvador"}, 0));
-        questoes.add(new QuestaoCultura("Quem escreveu 'Dom Casmurro'?", new String[]{"Machado de Assis", "Carlos Drummond", "Monteiro Lobato", "Cecília Meireles"}, 0));
-        questoes.add(new QuestaoCultura("Qual é o maior oceano do mundo?", new String[]{"Atlântico", "Índico", "Pacífico", "Ártico"}, 2));
-        questoes.add(new QuestaoCultura("Em que ano o Brasil descobriu o ouro?", new String[]{"1500", "1695", "1822", "1700"}, 1));
-        questoes.add(new QuestaoCultura("Qual é o maior país do mundo?", new String[]{"Brasil", "Rússia", "Canadá", "China"}, 1));
-        questoes.add(new QuestaoCultura("Qual planeta é conhecido como Planeta Vermelho?", new String[]{"Terra", "Marte", "Júpiter", "Vênus"}, 1));
-
-        // Questões de Matemática
-        questoes.add(new QuestaoMatematica("Quanto é 5 + 7?", new String[]{"12", "10", "11", "13"}, 0));
-        questoes.add(new QuestaoMatematica("Quanto é 9 x 3?", new String[]{"27", "21", "30", "26"}, 0));
-        questoes.add(new QuestaoMatematica("Qual é a raiz quadrada de 64?", new String[]{"6", "8", "7", "9"}, 1));
-        questoes.add(new QuestaoMatematica("Quanto é 15 - 4?", new String[]{"10", "11", "12", "13"}, 1));
-        questoes.add(new QuestaoMatematica("Quanto é 20 ÷ 5?", new String[]{"2", "3", "4", "5"}, 2));
-        questoes.add(new QuestaoMatematica("Qual é 7 + 6 x 2?", new String[]{"19", "20", "21", "18"}, 0));
+    public String getNomeJogador() {
+        return nomeJogador;
     }
 
-    public List<Questao> getQuestoes() {
-        return questoes;
+    public int getPontuacao() {
+        return pontuacao;
     }
 
-    public void marcarAcerto() {
-        acertos++;
-        pontos += 10;
+    public Questao getQuestaoAtual() {
+        if (indiceAtual < questoes.size()) {
+            return questoes.get(indiceAtual);
+        }
+        return null;
     }
 
-    public void marcarErro() {
-        erros++;
+    public boolean responder(String resposta) {
+        Questao q = getQuestaoAtual();
+        if (q == null) return false;
+        boolean correta = q.estaCorreta(resposta);
+
+        if (correta) {
+            pontuacao += 10;
+        }
+
+        indiceAtual++;
+        return correta;
     }
 
-    public int getAcertos() {
-        return acertos;
+    public boolean acabou() {
+        return indiceAtual >= questoes.size();
     }
 
-    public int getErros() {
-        return erros;
-    }
+    private void carregarPoolDeQuestoes() {
+      
+        // Matemática 
+        questoes.add(new QuestaoMatematica(
+                "Quanto é 5 + 7?",
+                new String[]{"10", "12", "13", "14"},
+                "12"));
 
-    public int getPontos() {
-        return pontos;
-    }
+        questoes.add(new QuestaoMatematica(
+                "Quanto é 9 × 3?",
+                new String[]{"18", "27", "36", "21"},
+                "27"));
 
-    public boolean fimDoJogo() {
-        return acertos >= 6 || erros >= 3;
+        questoes.add(new QuestaoMatematica(
+                "Qual é a raiz quadrada de 81?",
+                new String[]{"7", "8", "9", "10"},
+                "9"));
+
+        questoes.add(new QuestaoMatematica(
+                "Quanto é 15 ÷ 3?",
+                new String[]{"4", "5", "6", "3"},
+                "5"));
+
+        questoes.add(new QuestaoMatematica(
+                "Quanto é 7 * 6?",
+                new String[]{"42", "36", "48", "40"},
+                "42"));
+
+        questoes.add(new QuestaoMatematica(
+                "Qual o próximo número: 2, 4, 6, __ ?",
+                new String[]{"7", "8", "9", "10"},
+                "8"));
+
+        // Cultura geral
+        questoes.add(new QuestaoCultura(
+                "Qual é o maior planeta do sistema solar?",
+                new String[]{"Saturno", "Terra", "Júpiter", "Marte"},
+                "Júpiter"));
+
+        questoes.add(new QuestaoCultura(
+                "Quem pintou a Mona Lisa?",
+                new String[]{"Van Gogh", "Leonardo da Vinci", "Picasso", "Michelangelo"},
+                "Leonardo da Vinci"));
+
+        questoes.add(new QuestaoCultura(
+                "Qual o idioma oficial do Brasil?",
+                new String[]{"Espanhol", "Inglês", "Português", "Francês"},
+                "Português"));
+
+        questoes.add(new QuestaoCultura(
+                "Em que continente fica o Egito?",
+                new String[]{"Ásia", "África", "Europa", "Oceania"},
+                "África"));
+
+        questoes.add(new QuestaoCultura(
+                "Quem escreveu 'Dom Casmurro'?",
+                new String[]{"Machado de Assis", "José de Alencar", "Carlos Drummond", "Clarice Lispector"},
+                "Machado de Assis"));
+
+        questoes.add(new QuestaoCultura(
+                "Qual é a capital do Japão?",
+                new String[]{"Seul", "Pequim", "Tóquio", "Xangai"},
+                "Tóquio"));
     }
 }

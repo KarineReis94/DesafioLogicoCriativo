@@ -8,8 +8,7 @@ import desafiologico.gui.TelaInicial;
 
 public class Main {
     public static void main(String[] args) {
-        // Criar e exibir a tela inicial
-        TelaInicial telaInicial = new TelaInicial();
-        telaInicial.setVisible(true);
+        new TelaInicial().setVisible(true);
     }
 }
+

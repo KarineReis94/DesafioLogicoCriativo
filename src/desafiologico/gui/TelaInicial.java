@@ -6,40 +6,60 @@ package desafiologico.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class TelaInicial extends JFrame {
+
+    private JButton btnIniciar;
+    private JButton btnInstrucoes;
+    private JButton btnSair;
+
     public TelaInicial() {
+
         setTitle("Desafio Lógico Criativo");
-        setSize(400, 300);
+        setSize(420, 320);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(new Color(255, 200, 230)); // rosa claro 💗
 
         JLabel titulo = new JLabel("Desafio Lógico Criativo", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 20));
-        add(titulo, BorderLayout.NORTH);
+        titulo.setFont(new Font("Arial", Font.BOLD, 22));
+        titulo.setBounds(40, 30, 340, 40);
+        panel.add(titulo);
 
-        JTextArea instrucoes = new JTextArea(
-            "Instruções:\n- Cada jogador deve acertar pelo menos 6 perguntas.\n- Se errar 3, perde.\n- Pontuação: 10 pontos por acerto.\n- Boa sorte!");
-        instrucoes.setEditable(false);
-        add(instrucoes, BorderLayout.CENTER);
+        btnIniciar = new JButton("Iniciar");
+        btnIniciar.setBounds(140, 100, 140, 40);
+        estilizarBotao(btnIniciar);
+        panel.add(btnIniciar);
 
-        JPanel botoes = new JPanel();
-        JButton iniciar = new JButton("Iniciar");
-        JButton sair = new JButton("Sair");
+        btnInstrucoes = new JButton("Instruções");
+        btnInstrucoes.setBounds(140, 150, 140, 40);
+        estilizarBotao(btnInstrucoes);
+        panel.add(btnInstrucoes);
 
-        iniciar.addActionListener(e -> {
-            TelaJogo jogo = new TelaJogo();
-            jogo.setVisible(true);
-            this.dispose();
+        btnSair = new JButton("Sair");
+        btnSair.setBounds(140, 200, 140, 40);
+        estilizarBotao(btnSair);
+        panel.add(btnSair);
+
+        add(panel);
+
+        btnIniciar.addActionListener(e -> {
+            new TelaNome().setVisible(true);
+            dispose();
         });
 
-        sair.addActionListener(e -> System.exit(0));
+        btnInstrucoes.addActionListener(e -> new TelaInstrucoes().setVisible(true));
 
-        botoes.add(iniciar);
-        botoes.add(sair);
+        btnSair.addActionListener(e -> System.exit(0));
+    }
 
-        add(botoes, BorderLayout.SOUTH);
+    private void estilizarBotao(JButton btn) {
+        btn.setBackground(new Color(255, 130, 180));
+        btn.setForeground(Color.WHITE);
+        btn.setFocusPainted(false);
+        btn.setFont(new Font("Arial", Font.BOLD, 14));
     }
 }

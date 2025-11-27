@@ -6,12 +6,7 @@ package desafiologico;
 
 public class QuestaoCultura extends Questao {
 
-    public QuestaoCultura(String pergunta, String[] opcoes, int respostaCorreta) {
-        super(pergunta, opcoes, respostaCorreta);
-    }
-
-    @Override
-    public String getCategoria() {
-        return "Cultura Geral";
+    public QuestaoCultura(String enunciado, String[] alternativas, String respostaCorreta) {
+        super(enunciado, alternativas, respostaCorreta);
     }
 }

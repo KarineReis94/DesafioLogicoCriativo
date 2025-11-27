@@ -5,28 +5,25 @@
 package desafiologico;
 
 public abstract class Questao {
-    protected String pergunta;
-    protected String[] opcoes;
-    protected int respostaCorreta;
+    private String enunciado;
+    private String[] alternativas;
+    private String respostaCorreta;
 
-    public Questao(String pergunta, String[] opcoes, int respostaCorreta) {
-        this.pergunta = pergunta;
-        this.opcoes = opcoes;
+    public Questao(String enunciado, String[] alternativas, String respostaCorreta) {
+        this.enunciado = enunciado;
+        this.alternativas = alternativas;
         this.respostaCorreta = respostaCorreta;
     }
 
-    public String getPergunta() {
-        return pergunta;
+    public String getEnunciado() {
+        return enunciado;
     }
 
-    public String[] getOpcoes() {
-        return opcoes;
+    public String[] getAlternativas() {
+        return alternativas;
     }
 
-    public boolean verificarResposta(int resposta) {
-        return resposta == respostaCorreta;
+    public boolean estaCorreta(String resposta) {
+        return resposta.equalsIgnoreCase(respostaCorreta);
     }
-
-    public abstract String getCategoria();
 }
-

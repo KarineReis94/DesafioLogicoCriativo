@@ -6,12 +6,7 @@ package desafiologico;
 
 public class QuestaoMatematica extends Questao {
 
-    public QuestaoMatematica(String pergunta, String[] opcoes, int respostaCorreta) {
-        super(pergunta, opcoes, respostaCorreta);
-    }
-
-    @Override
-    public String getCategoria() {
-        return "Matemática";
+    public QuestaoMatematica(String enunciado, String[] alternativas, String respostaCorreta) {
+        super(enunciado, alternativas, respostaCorreta);
     }
 }
