@@ -43,6 +43,7 @@ Observações:
 Este projeto foi desenvolvido com foco em aprendizado de Java, organização de código e boas práticas, mantendo o código limpo e modular.
 
 Autores:  
+
 Karine dos Reis Barbo Valle 
 
 Maria Luiza Antunes Leal 
@@ -56,4 +57,5 @@ Millena Albergoni dos Anjos
 UC: Programação de Soluções Computacionais 
 
 Professor: Leandro Procópio Alves  
-Edquel Bueno Prado Farias 
+
+Professor: Edquel Bueno Prado Farias 
