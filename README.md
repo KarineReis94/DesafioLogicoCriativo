@@ -44,9 +44,13 @@ Este projeto foi desenvolvido com foco em aprendizado de Java, organização de 
 
 Autores:  
 Karine dos Reis Barbo Valle 
+
 Maria Luiza Antunes Leal 
+
 Jéssica Ellen Medeiros da Silva 
+
 Guilherme Favero Ribeiro 
+
 Millena Albergoni dos Anjos 
 
 UC: Programação de Soluções Computacionais 
